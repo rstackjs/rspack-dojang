@@ -1,6 +1,7 @@
 use crate::eval::*;
 use crate::exec::*;
 use crate::expr::*;
+use serde_json::Number;
 use serde_json::{Map, Value};
 use std::collections::HashMap;
 use std::fmt;
@@ -381,6 +382,7 @@ impl ComputeExpr for Eval {
         match get_nth_element_from_operand(range, for_index) {
             Some(element) => {
                 context.set_value(&object_name.split(".").collect(), &element)?;
+                context.set_value(&vec!["index"], &Value::Number(Number::from(for_index as u64)))?;
                 Ok(true)
             }
             _ => Ok(false),
