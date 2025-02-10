@@ -580,6 +580,29 @@ fn test_for_in_statement() {
 }
 
 #[test]
+fn test_for_in_statement_with_index() {
+    let template = r#"<% for x in arr { %><%= index %> <%= x %>,<% } %>"#;
+    let mut includes = Mutex::new(HashMap::new());
+    let executer = Executer::new(Parser::parse(template).unwrap()).unwrap();
+
+    let context_json = r#"{"arr" : [1,2,3,4,5]}"#;
+    let context_value: Value = serde_json::from_str(context_json).unwrap();
+    let mut context = Context::new(context_value);
+
+    let result = executer
+        .render(
+            &mut context,
+            &HashMap::new(),
+            &HashMap::new(),
+            template,
+            &mut includes,
+        )
+        .unwrap();
+
+    assert_eq!(result, "0 1,1 2,2 3,3 4,4 5,".to_string());
+}
+
+#[test]
 fn test_nested_for_in_statement() {
     let template =
         r#"<% for x in arr { for y in arr2 { %><%= x %>*<%= y %>=<%= x * y %>,<% } } %>"#;
