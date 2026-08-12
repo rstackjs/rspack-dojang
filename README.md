@@ -1,5 +1,8 @@
 # rspack_dojang
 
+> [!NOTE]
+> This repo has been moved to [web-infra-dev/rspack](https://github.com/web-infra-dev/rspack/tree/main/crates/rspack_dojang) and archived.
+
 > [!NOTE]  
 > This is a fork of [dojang](https://github.com/kev0960/dojang), and will be used in Rspack to fix bugs and add some Rspack customized features.
 
